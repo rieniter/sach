@@ -4,6 +4,28 @@
 	
 	session_start();
 
+	if(empty($_POST['username']))
+
+    {
+
+        $this->HandleError("UserName is empty!");
+
+        return false;
+
+    }
+
+     
+
+    if(empty($_POST['password']))
+
+    {
+
+        $this->HandleError("Password is empty!");
+
+        return false;
+
+    }
+
 	
 	$username 	= $_POST['username'];
 	$password	= $_POST['password'];

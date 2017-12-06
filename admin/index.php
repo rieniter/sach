@@ -1,18 +1,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<?php include("per/per.php");
-echo "<a href='http://localhost/sach/'>Trở về trang chủ</a>";	
-?>
+<div class="topmn">
+<a href='http://localhost/sach/'>Trở về trang chủ</a>
+</div>
 
-<table border="1">
+<?php include("per/per.php");
+//echo "<a href='http://localhost/sach/'>Trở về trang chủ</a>";	
+?>
+<br><br>
+<div class="container">
+<table border="1" class="table-fill">
 <tr>
 <th colspan="4">Quản lý sách</th>
 </tr>
 <tr>
 <td>
+
+
 <form action="them.php" method='POST'>
   <input type="input" name="id" placeholder="ID"  ><br>
   <input type="input" name="tensach" placeholder="Tên sách" required><br>
@@ -59,6 +67,8 @@ Thông tin cần thay đổi : <br>
 <td>Sửa sách</td>
 <td>Tìm kiếm sách</td>
 </tr>
+
+</div>
 </table>
 </body>
 </html>

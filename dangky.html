@@ -8,8 +8,8 @@
 
 <form action="dangky.php" method='POST'>
   <input type="name" name="name" placeholder="Name" required>
-  <input type="username" name="username" placeholder="Username" required>
-  <input type="password" name="password" placeholder="Password" required>
+  <input type="username" name="username" placeholder="Username 4 chars" pattern="[A-Za-z]{4,}" required>
+  <input type="password" name="password" placeholder="Password 6 chars" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
   <input type='submit' name="submit" value="Đồng ý">
 </form>
 
