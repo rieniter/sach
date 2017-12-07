@@ -19,6 +19,7 @@ if(isset($_SESSION['username']))
 {
 	echo "<a href='admin/index.php'>".$_SESSION['username']."</a>";
 	echo "<a href='logout.php'>Thoát</a>";
+	echo "<a href=''>Giỏ hàng</a>";
 }
 else
 {
@@ -57,36 +58,21 @@ else
 <br><br><br>
 <?php
 
-
-	
-	$sql = "select * from books";
+	$id = $_GET['id'];
+	$sql = "select books.id,tensach,tacgia.tenTG,nxb.tenNXB,gia,theloai.tentheloai,hinhanh from books,tacgia,theloai,nxb where id = '$id' and books.tacgia = tacgia.id_tacgia and books.theloai = theloai.id_theloai and books.nxb = nxb.id_nxb";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sql);
-	echo "<table><tr>";
+	echo "<table style='padding : 20px 300px'><tr>";
 	if($result->num_rows >0)
 		while($row = $result->fetch_assoc()) 
 			{
-				$i = $row['id'];
+				
 				echo "<td>";
-				echo "<a href ='sach.php?id=$i'><img src='admin/img/books/".$row['hinhanh']."' width='250px' height='250px'></a>";
-				echo "</td>";
+				echo "<a href =''><img src='admin/img/books/".$row['hinhanh']."' width='500px' height='500px'></a>";
+				echo "</td><td><table><tr><tH><strong style='font-size: 40px;'>".$row['tensach']."</strong></th></tr><tr><td><hr><strong style='font-size: 25px;'>Tác giả : ".$row['tenTG']."<br>Nhà xuất bản : ".$row['tenNXB']."<br>Thể loại : ".$row['tentheloai']."<br>Giá : ".$row['gia']." VNĐ</strong></td></tr></table></td>";
 			}
-	else echo "0 results";
-	$result->free();
-	$result = $mysqli->query($sql);
-	echo "</tr><tr>";
-	
-	if($result->num_rows >0)
-		while($row1 = $result->fetch_assoc()) 
-			{
-				echo "<td align='center'>";
-				echo $row1['gia']." VNĐ";
-				echo "</td>";
-			}
-	else echo "0 results";
-	$result->free();
+
 	echo "</tr></table>";
-	
-	
 ?>
 </div>
 		

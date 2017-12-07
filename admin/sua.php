@@ -10,35 +10,32 @@ $theloais = $_POST['theloais'];
 $hinhs = $_POST['hinhs'];
 $sb = $_POST['submit'];
 
-$sql = "update books set tensach = '$tensachs', tacgia = '$tacgias', nxb ='$nxbs', gia = '$gias', theloai = '$theloais', hinhanh = '$hinhs' where id = '$ids'";
-mysqli_query($mysqli,$sql);
-$sqlb = "select * from books where id = '$ids'";
-mysqli_query($mysqli,"SET character_set_results=utf8");
-$result = $mysqli->query($sqlb);
+$sql = "update books set tensach = N'$tensachs',tacgia = N'$tacgias',nxb = N'$nxbs', gia ='$gias', theloai=N'$theloais', hinhanh = '$hinhs' where id = '$ids'";
 
-if(isset($_POST["submit"]))
+mysqli_query($mysqli,"SET character_set_results=utf8");
+
+if(isset($_POST["submit"]) && $ids!= "")
 {
-	if($result->num_rows >0)
-	{
-		while($row = $result->fetch_assoc()) 
-			{
-				echo "Thông tin vừa được sửa : <hr>";
-				echo "ID : ".$row['id'];
-				echo "<br>Tên sách : ".$row['tensach'];
-				echo "<br>Tác giả : ".$row['tacgia'];
-				echo "<br>Nhà xuất bản : ".$row['nxb'];
-				echo "<br>Giá : ".$row['gia']." VNĐ";
-				echo "<br>Thể loại : ".$row['theloai'];
-				echo "<br>Hình ảnh : <img src='img/books/".$row['hinhanh']."'></img>";
-			}
-		echo "<a href='http://localhost/sach/admin/'>Trở về</a>";	
-	}
-	else
-	{
-	echo "Sửa thất bại";
-	echo "<a href='http://localhost/sach/admin/'>Trở về</a>";
-	}
+		$mysqli->query($sql);
+			if($mysqli->affected_rows > 0)
+				echo "<br><br><hr>Đã sửa thông tin của sách có ID  : ".$ids."  ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a><br>";
+			else
+				echo "<br><br><hr>Sửa thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
 	
 }
-
+else
+	echo "<br><br><hr>Sửa thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
 ?>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body text = "white">
+<div class="topmn">
+<a href='http://localhost/sach/'>Trở về trang chủ</a>
+</div>
+<br><br><br>
+</body>
+</html>

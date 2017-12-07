@@ -1,3 +1,4 @@
+
 <?php
 include("include/include.php");
 
@@ -11,18 +12,20 @@ $hinh = $_POST['hinh'];
 $sb = $_POST['submit'];
 
 $sql = "insert into books values(N'$id',N'$tensach',N'$tacgia',N'$nxb',N'$gia',N'$theloai',N'$hinh')";
-$mysqli->query($sql);
 $sqlb = "select * from books where id = '$id'";
 mysqli_query($mysqli,"SET character_set_results=utf8");
 $result = $mysqli->query($sqlb);
 
-if(isset($_POST["submit"]))
+
+
+if(isset($_POST["submit"]) && $id!= "")
 {
 	if($result->num_rows >0)
 	{
+		echo "<br><br>Sách có ID này đã tồn tại !!! Thông tin sách : <hr>";
 		while($row = $result->fetch_assoc()) 
 			{
-				echo "Thông tin vừa thêm vào : <hr>";
+				
 				echo "ID : ".$row['id'];
 				echo "<br>Tên sách : ".$row['tensach'];
 				echo "<br>Tác giả : ".$row['tacgia'];
@@ -33,12 +36,32 @@ if(isset($_POST["submit"]))
 			}
 		echo "<a href='http://localhost/sach/admin/'>Trở về</a>";	
 	}
-	else
+	else 
 	{
-	echo "Thêm thất bại";
-	echo "<a href='http://localhost/sach/admin/'>Trở về</a>";
+		$mysqli->query($sql);
+			if($mysqli->affected_rows > 0)
+				echo "<br><br><hr>Đã thêm ".$tensach." vào Database !<br> <a href='http://localhost/sach/admin'>Trở về trang quản lý</a><br>";
+			else
+				echo "<br><br><hr>Thêm thất bại ! <a href='http://localhost/sach/admin/'>Trở về trang quản lý</a>";
+			
+		
 	}
 	
 }
+else
+	echo "<br><br><hr>Thêm thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
 
 ?>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body text = "white">
+<div class="topmn">
+<a href='http://localhost/sach/'>Trở về trang chủ</a>
+</div>
+<br><br><br>
+</body>
+</html>

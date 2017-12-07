@@ -4,36 +4,39 @@ include("include/include.php");
 $idx = $_POST['idx'];
 
 
-
-$sqlb = "select * from books where id = '$idx'";
 mysqli_query($mysqli,"SET character_set_results=utf8");
-$result = $mysqli->query($sqlb);
-$sql = "delete from books where id ='$idx'";
-$mysqli->query($sql);
 
-if(isset($_POST["submit"]))
+$sql = "delete from books where id ='$idx'";
+
+
+if(isset($_POST["submit"]) && $idx!= "")
 {
-	if($result->num_rows >0)
+	$mysqli->query($sql);
+	if($mysqli->affected_rows > 0)
 	{
-		while($row = $result->fetch_assoc()) 
-			{
-				echo "Thông tin vừa xóa đi : <hr>";
-				echo "ID : ".$row['id'];
-				echo "<br>Tên sách : ".$row['tensach'];
-				echo "<br>Tác giả : ".$row['tacgia'];
-				echo "<br>Nhà xuất bản : ".$row['nxb'];
-				echo "<br>Giá : ".$row['gia']." VNĐ";
-				echo "<br>Thể loại : ".$row['theloai'];
-				echo "<br>Hình ảnh : <img src='img/books/".$row['hinhanh']."'></img>";
-			}
-		echo "<a href='http://localhost/sach/admin/'>Trở về</a>";	
+		echo "<br><br><br>";
+			echo "<br><br><hr>Đã xóa ".$idx." khỏi Database ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a><br>";
 	}
 	else
 	{
-	echo "Thêm thất bại";
-	echo "<a href='http://localhost/sach/admin/'>Trở về</a>";
+	
+		echo "<br><br><hr>Xóa thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
 	}
 	
 }
-
+else
+	echo "<br><br><hr>Xóa thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
 ?>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body text = "white">
+<div class="topmn">
+<a href='http://localhost/sach/'>Trở về trang chủ</a>
+</div>
+<br><br><br>
+</body>
+</html>

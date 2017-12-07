@@ -4,41 +4,41 @@ include("include/include.php");
 $tensacht = $_POST['tensacht'];
 $tacgiat = $_POST['tacgiat'];
 $theloait = $_POST['theloait'];
-$sb = $_POST['submit'];
+
 
 if($tacgiat == "" && $theloait == "")
 {
-	$sqlb = "select * from books where tensach like '%$tensacht%'";
+	$sqlb = "select * from books where tensach like N'%$tensacht%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($tensacht == "" && $theloait == "")
 {
-	$sqlb = "select * from books where tacgia like '%$tacgiat%'";
+	$sqlb = "select * from books where tacgia like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($tensacht == "" && $tacgiat == "")
 {
-	$sqlb = "select * from books where theloai like '%$theloait%'";
+	$sqlb = "select * from books where theloai like N'%$theloait%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($theloait == "" && $tensacht != "" && $tacgiat != "")
 {
-	$sqlb = "select * from books where tensach like '%$tensacht%' and tacgia like '%$tacgiat%'";
+	$sqlb = "select * from books where tensach like N'%$tensacht%' and tacgia like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($theloait != "" && $tensacht == "" && $tacgiat != "")
 {
-	$sqlb = "select * from books where theloai like '%$theloait%' and tacgia like '%$tacgiat%'";
+	$sqlb = "select * from books where theloai like N'%$theloait%' and tacgia like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if($theloait != "" && $tensacht != "" && $tacgiat == "")
 {
-	$sqlb = "select * from books where theloai like '%$theloait%' and tensach like '%$tensacht%'";
+	$sqlb = "select * from books where theloai like N'%$theloait%' and tensach like N'%$tensacht%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if($theloait != "" && $tensacht != "" && $tacgiat != "")
 {
-	$sqlb = "select * from books where theloai like '%$theloait%' and tensach like '%$tensacht%' and tacgia like '%$tacgiat%'";
+	$sqlb = "select * from books where theloai like N'%$theloait%' and tensach like N'%$tensacht%' and tacgia like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }
@@ -59,13 +59,28 @@ if(isset($_POST["submit"]))
 				echo "<br>Thể loại : ".$row['theloai'];
 				echo "<br>Hình ảnh : <img src='img/books/".$row['hinhanh']."' width ='300px' height ='300px'></img><hr>";
 			}
-		echo "<a href='http://localhost/sach/admin/'>Trở về</a>";	
+		echo "<br><br><br><hr><a href='http://localhost/sach/admin/'>Trở về</a>";	
 	}
 	else
 	{
-	echo "Tìm kiếm thất bại";
+	echo "<br><br><br><hr>Tìm kiếm thất bại <a href='http://localhost/sach/admin/'>Trở về</a>";
 	}
 	
 }
+else 
+	echo "<br><br><br><hr>Tìm kiếm thất bại <a href='http://localhost/sach/admin/'>Trở về</a>";
 
 ?>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body text = "white">
+<div class="topmn">
+<a href='http://localhost/sach/'>Trở về trang chủ</a>
+</div>
+<br><br><br>
+</body>
+</html>

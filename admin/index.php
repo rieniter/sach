@@ -6,6 +6,10 @@
 <body>
 <div class="topmn">
 <a href='http://localhost/sach/'>Trở về trang chủ</a>
+<a href='index.php'>Sách</a>
+<a href='tacgia.php'>Tác giả</a>
+<a href='nxb.php'>Nhà xuất bản</a>
+<a href='theloai.php'>Thể loại</a>
 </div>
 
 <?php include("per/per.php");
@@ -19,8 +23,6 @@
 </tr>
 <tr>
 <td>
-
-
 <form action="them.php" method='POST'>
   <input type="input" name="id" placeholder="ID"  ><br>
   <input type="input" name="tensach" placeholder="Tên sách" required><br>
@@ -42,13 +44,13 @@
 <td>
 <form action="sua.php" method='POST'>
 Nhập ID của sách cần sửa :
-<input type="input" name="ids" placeholder="ID"  ><br>
+<input type="input" name="ids" placeholder="ID"  required><br>
 Thông tin cần thay đổi : <br>
-  <input type="input" name="tensachs" placeholder="Tên sách" required><br>
-  <input type="input" name="tacgias" placeholder="Tác giả" required><br>
-  <input type="input" name="nxbs" placeholder="NXB" required><br>
+  <input type="input" name="tensachs" placeholder="Tên sách" ><br>
+  <input type="input" name="tacgias" placeholder="Tác giả" ><br>
+  <input type="input" name="nxbs" placeholder="NXB" ><br>
   <input type="number" name="gias" placeholder="Gíá"  ><br>
-  <input type="input" name="theloais" placeholder="Thể loại" required><br>
+  <input type="input" name="theloais" placeholder="Thể loại" ><br>
   <input type="file" name="hinhs"><br>
   <input type='submit' name="submit" value="Sửa">
   </form>
@@ -70,5 +72,7 @@ Thông tin cần thay đổi : <br>
 
 </div>
 </table>
+
+
 </body>
 </html>

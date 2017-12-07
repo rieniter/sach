@@ -223,3 +223,9 @@ td.text-center {
 td.text-right {
   text-align: right;
 }
+
+.leftmn{
+	margin-top:40px;
+	padding:1px 1px;
+	float:left;
+}

@@ -19,6 +19,7 @@ if(isset($_SESSION['username']))
 {
 	echo "<a href='admin/index.php'>".$_SESSION['username']."</a>";
 	echo "<a href='logout.php'>Thoát</a>";
+	echo "<a href=''>Giỏ hàng</a>";
 }
 else
 {
@@ -59,7 +60,7 @@ else
 
 
 	
-	$sql = "select * from books";
+	$sql = "select * from books where theloai = 'TL1'";
 	$result = $mysqli->query($sql);
 	echo "<table><tr>";
 	if($result->num_rows >0)
