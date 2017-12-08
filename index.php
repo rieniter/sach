@@ -19,6 +19,7 @@ if(isset($_SESSION['username']))
 {
 	echo "<a href='admin/index.php'>".$_SESSION['username']."</a>";
 	echo "<a href='logout.php'>Thoát</a>";
+	echo "<a href='cart.php'>Giỏ hàng</a>";
 }
 else
 {

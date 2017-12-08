@@ -58,36 +58,35 @@ else
 <br><br><br>
 <?php
 
-
-	
-	$sql = "select * from books where theloai = 'TL1'";
+if($_GET['id']!= "")
+{
+	$id = $_GET['id'];
+	$sql = "select books.id,tensach,tacgia.tenTG,nxb.tenNXB,gia,theloai.tentheloai,hinhanh from books,tacgia,theloai,nxb where id = '$id' and books.tacgia = tacgia.id_tacgia and books.theloai = theloai.id_theloai and books.nxb = nxb.id_nxb";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sql);
-	echo "<table><tr>";
+	echo "<table style='padding : 20px 150px'><tr><td>";
+	if(!isset($_SESSION['cart']))
+		$_SESSION['cart'] = array();
 	if($result->num_rows >0)
 		while($row = $result->fetch_assoc()) 
 			{
-				$i = $row['id'];
-				echo "<td>";
-				echo "<a href ='sach.php?id=$i'><img src='admin/img/books/".$row['hinhanh']."' width='250px' height='250px'></a>";
-				echo "</td>";
+				if(array_key_exists($id, $_SESSION['cart']))
+				{
+					echo "Giỏ hàng đã tồn tại sản phẩm này";
+					
+				}
+				else
+				{
+					$_SESSION['cart'][$id]=$id;
+					echo "Đã thêm ".$row['tensach']." vào giỏ hàng ";
+				}
+
 			}
-	else echo "0 results";
-	$result->free();
-	$result = $mysqli->query($sql);
-	echo "</tr><tr>";
-	
-	if($result->num_rows >0)
-		while($row1 = $result->fetch_assoc()) 
-			{
-				echo "<td align='center'>";
-				echo $row1['gia']." VNĐ";
-				echo "</td>";
-			}
-	else echo "0 results";
-	$result->free();
-	echo "</tr></table>";
-	
-	
+
+	echo "</td></tr></table>";
+}
+else
+	echo "Thêm thất bại !";
 ?>
 </div>
 		
