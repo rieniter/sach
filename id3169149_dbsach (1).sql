@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 07, 2017 at 03:01 PM
+-- Generation Time: Dec 09, 2017 at 07:04 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `id_book` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
   `soluong` int(11) NOT NULL,
   PRIMARY KEY (`id_cart`),
-  UNIQUE KEY `id_book` (`id_book`)
+  UNIQUE KEY `id_book` (`id_book`),
+  UNIQUE KEY `id_cart` (`id_cart`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 -- --------------------------------------------------------
@@ -81,8 +82,15 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
   `id_hoadon` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
   `idKhach` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
   PRIMARY KEY (`id_hoadon`),
-  UNIQUE KEY `idKhach` (`idKhach`)
+  KEY `idKhach` (`idKhach`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `hoadon`
+--
+
+INSERT INTO `hoadon` (`id_hoadon`, `idKhach`) VALUES
+('HD1', 'user');
 
 -- --------------------------------------------------------
 
@@ -154,7 +162,8 @@ CREATE TABLE IF NOT EXISTS `thanhvien` (
 --
 
 INSERT INTO `thanhvien` (`username`, `password`, `vaitro`, `hoTen`) VALUES
-('admin', '123', 1, 'Admin');
+('admin', '123', 1, 'Admin'),
+('user', '123', 0, 'Khach A');
 
 -- --------------------------------------------------------
 
