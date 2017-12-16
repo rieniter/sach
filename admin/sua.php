@@ -7,15 +7,20 @@ $tacgias = $_POST['tacgias'];
 $nxbs = $_POST['nxbs'];
 $gias = $_POST['gias'];
 $theloais = $_POST['theloais'];
-$hinhs = $_POST['hinhs'];
 $sb = $_POST['submit'];
-
-$sql = "update books set tensach = N'$tensachs',tacgia = N'$tacgias',nxb = N'$nxbs', gia ='$gias', theloai=N'$theloais', hinhanh = '$hinhs' where id = '$ids'";
-
-mysqli_query($mysqli,"SET character_set_results=utf8");
+$image = $_FILES['hinhs']['name'];
 
 if(isset($_POST["submit"]) && $ids!= "")
 {
+	$tp = "image/".basename($image);
+	if(move_uploaded_file($_FILES['hinhs']['tmp_name'],$tp))
+	{
+	$sql = "update books set tensach = N'$tensachs',tacgia = N'$tacgias',nxb = N'$nxbs', gia ='$gias', theloai=N'$theloais', hinhanh = '$tp' where id = '$ids'";
+	}
+	else 
+	echo "<br><br><hr>Sửa thất bại ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a>";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+
 		$mysqli->query($sql);
 			if($mysqli->affected_rows > 0)
 				echo "<br><br><hr>Đã sửa thông tin của sách có ID  : ".$ids."  ! <a href='http://localhost/sach/admin'>Trở về trang quản lý</a><br>";

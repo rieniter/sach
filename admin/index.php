@@ -13,6 +13,7 @@
 </div>
 
 <?php include("per/per.php");
+include("include/include.php");
 //echo "<a href='http://localhost/sach/'>Trở về trang chủ</a>";	
 ?>
 <br><br>
@@ -23,40 +24,122 @@
 </tr>
 <tr>
 <td>
-<form action="them.php" method='POST'>
+<form action="them.php" method='POST' enctype= "multipart/form-data">
   <input type="input" name="id" placeholder="ID"  ><br>
   <input type="input" name="tensach" placeholder="Tên sách" required><br>
-  <input type="input" name="tacgia" placeholder="Tác giả" required><br>
-  <input type="input" name="nxb" placeholder="NXB" required><br>
+  
+  
+  <select name="tacgia">
+  <?php 
+  //<input type="input" name="tacgia" placeholder="Tác giả" required><br>
+  $sql = "select * from tacgia";
+  mysqli_query($mysqli,"SET character_set_results=utf8");
+  $result = $mysqli->query($sql);
+  if($result->num_rows >0)
+		while($row = $result->fetch_assoc()) 
+		{
+			echo "<option value='".$row['id_tacgia']."'>".$row['tenTG']."</option>";
+		}
+		
+	echo "</select><br><select name='nxb'>";
+	
+	$sql1 = "select * from nxb";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result1 = $mysqli->query($sql1);
+	if($result1->num_rows >0)
+		while($row1 = $result1->fetch_assoc()) 
+		{
+			echo "<option value='".$row1['id_nxb']."'>".$row1['tenNXB']."</option>";
+		}	
+	echo "</select><br>";
+		
+  ?>
+
+</select>
   <input type="number" name="gia" placeholder="Gíá"  ><br>
-  <input type="input" name="theloai" placeholder="Thể loại" required><br>
-  <input type="file" name="hinh"><br>
+  <?php 
+  echo "<select name='theloai'>";
+  $sql2 = "select * from theloai";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result2 = $mysqli->query($sql2);
+	if($result2->num_rows >0)
+		while($row2 = $result2->fetch_assoc()) 
+		{
+			echo "<option value='".$row2['id_theloai']."'>".$row2['tentheloai']."</option>";
+		}	
+	echo "</select><br>";
+  ?>
+  <input type="file" name="hinh" ><br>
   <input type='submit' name="submit" value="Thêm">
 </form>
 </td>
 <td>
-<form action="xoa.php" method='POST'>
+<form action="xoa.php" method='POST' enctype= "multipart/form-data">
 <input type="input" name="idx" placeholder="ID" ><br>
 <input type='submit' name="submit" value="Xóa">
 </form>
 </td>
 
 <td>
-<form action="sua.php" method='POST'>
-Nhập ID của sách cần sửa :
-<input type="input" name="ids" placeholder="ID"  required><br>
+<form action="sua.php" method='POST' enctype= "multipart/form-data">
+Select book :
+ <?php 
+  echo "<select name='ids'>";
+  $sql3 = "select * from books";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			echo "<option value='".$row3['id']."'>".$row3['tensach']."</option>";
+		}	
+	echo "</select><br>";
+  ?>
 Thông tin cần thay đổi : <br>
   <input type="input" name="tensachs" placeholder="Tên sách" ><br>
-  <input type="input" name="tacgias" placeholder="Tác giả" ><br>
-  <input type="input" name="nxbs" placeholder="NXB" ><br>
+  <select name="tacgias">
+<?php 
+ $sql = "select * from tacgia";
+  mysqli_query($mysqli,"SET character_set_results=utf8");
+  $result = $mysqli->query($sql);
+  if($result->num_rows >0)
+		while($row = $result->fetch_assoc()) 
+		{
+			echo "<option value='".$row['id_tacgia']."'>".$row['tenTG']."</option>";
+		}
+		
+	echo "</select><br><select name='nxbs'>";
+	
+	$sql1 = "select * from nxb";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result1 = $mysqli->query($sql1);
+	if($result1->num_rows >0)
+		while($row1 = $result1->fetch_assoc()) 
+		{
+			echo "<option value='".$row1['id_nxb']."'>".$row1['tenNXB']."</option>";
+		}	
+	echo "</select><br>";
+
+?>
   <input type="number" name="gias" placeholder="Gíá"  ><br>
-  <input type="input" name="theloais" placeholder="Thể loại" ><br>
+   <?php 
+  echo "<select name='theloais'>";
+  $sql2 = "select * from theloai";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result2 = $mysqli->query($sql2);
+	if($result2->num_rows >0)
+		while($row2 = $result2->fetch_assoc()) 
+		{
+			echo "<option value='".$row2['id_theloai']."'>".$row2['tentheloai']."</option>";
+		}	
+	echo "</select><br>";
+  ?>
   <input type="file" name="hinhs"><br>
   <input type='submit' name="submit" value="Sửa">
   </form>
 </td>
 <td>
-<form action="tim.php" method='POST'>
+<form action="tim.php" method='POST' enctype= "multipart/form-data">
 <input type="input" name="tensacht" placeholder="Tên sách" ><br>
   <input type="input" name="tacgiat" placeholder="Tác giả" ><br>
   <input type="input" name="theloait" placeholder="Thể loại" ><br>

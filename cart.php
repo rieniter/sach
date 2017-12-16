@@ -46,11 +46,22 @@ else
 	
 <div class="mainmnb">
 		<ul class="ulmainmnb">
-		<li><a href="sgk.php">Sách giáo khoa</a></li>
-		<li><a href="snn.php">Sách ngoại ngữ</a></li>
-		<li><a href="skn.php">Sách kĩ năng</a></li>
-		<li><a href="td.php">Từ điển</a></li>
-
+		<?php
+		$menu = "select * from theloai";
+		mysqli_query($mysqli,"SET character_set_results=utf8");
+		$r = $mysqli->query($menu);
+		
+		if($r->num_rows >0)
+			while($row = $r->fetch_assoc()) 
+			{
+				
+				$itl = $row['id_theloai'];
+				echo "<li>";
+				echo "<a href ='menu.php?id=$itl'>".$row['tentheloai']."</a>";
+				echo "</li>";
+			}
+	else echo "0 results";
+		?>
 		
 		</ul>	
 </div>
@@ -80,6 +91,7 @@ if($_SESSION['cart']!= "")
 	
 
 	echo "</tr></table><input type='submit' name='submit' value='Xác nhận'></form>";
+
 }
 }
 else

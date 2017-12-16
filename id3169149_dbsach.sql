@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2017 at 07:04 AM
+-- Generation Time: Dec 15, 2017 at 04:15 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -48,12 +48,14 @@ CREATE TABLE IF NOT EXISTS `books` (
 --
 
 INSERT INTO `books` (`id`, `tensach`, `tacgia`, `nxb`, `gia`, `theloai`, `hinhanh`) VALUES
-('S1', 'Trên đường băng', 'TG2', 'NXB2', 56000, 'TL1', 'trenduongbang.jpg'),
-('S2', 'Tuổi trẻ đáng giá bao nhiêu', 'TG1', 'NXB2', 56000, 'TL1', 'tuoitredanggiabaonhieu.jpg'),
-('S3', 'Từ điển Anh - Việt', 'TG0', 'NXB3', 150000, 'TL2', 'tudienanhviet.jpg'),
-('S4', 'Luyện Siêu Trí Nhớ Từ Vựng', 'TG4', 'NXB3', 131000, 'TL3', 'nn1.gif'),
-('S5', 'Sách Vật lý 12', 'TG0', 'NXB4', 49000, 'TL4', 'vatly12.jpg'),
-('S6', 'Hóa học 12', 'TG0', 'NXB4', 46000, 'TL4', 'hoa12.jpg');
+('S1', 'Trên đường băng', 'TG2', 'NXB2', 56000, 'TL1', 'image/trenduongbang.jpg'),
+('S2', 'Tuổi trẻ đáng giá bao nhiêu', 'TG1', 'NXB2', 56000, 'TL1', 'image/tuoitredanggiabaonhieu.jpg'),
+('S3', 'Từ điển Anh - Việt', 'TG0', 'NXB3', 150000, 'TL2', 'image/tudienanhviet.jpg'),
+('S4', 'Luyện Siêu Trí Nhớ Từ Vựng', 'TG4', 'NXB3', 131000, 'TL3', 'image/nn1.gif'),
+('S5', 'Sách Vật lý 12', 'TG0', 'NXB4', 49000, 'TL4', 'image/vatly12.jpg'),
+('S6', 'Hóa học 12', 'TG0', 'NXB4', 46000, 'TL4', 'image/hoa12.jpg'),
+('S7', 'Hóa học 11', 'TG0', 'NXB4', 44444, 'TL4', 'image/2474811238316_s_01.d20171009.t172612.763804.jpg'),
+('S8', 'Từ điển Tiếng Việt', 'TG0', 'NXB4', 30000, 'TL4', 'image/IMG_20170923_0092.gif');
 
 -- --------------------------------------------------------
 

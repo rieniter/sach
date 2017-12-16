@@ -46,12 +46,23 @@ else
 	
 <div class="mainmnb">
 		<ul class="ulmainmnb">
-		<li><a href="sgk.php">Sách giáo khoa</a></li>
-		<li><a href="snn.php">Sách ngoại ngữ</a></li>
-		<li><a href="skn.php">Sách kĩ năng</a></li>
-		<li><a href="td.php">Từ điển</a></li>
-
+		<?php
+		$menu = "select * from theloai";
+		mysqli_query($mysqli,"SET character_set_results=utf8");
+		$r = $mysqli->query($menu);
 		
+		if($r->num_rows >0)
+			while($row = $r->fetch_assoc()) 
+			{
+				
+				$itl = $row['id_theloai'];
+				echo "<li>";
+				echo "<a href ='menu.php?id=$itl'>".$row['tentheloai']."</a>";
+				echo "</li>";
+			}
+	else echo "0 results";
+		?>
+	
 		</ul>	
 </div>
 <div class="content">
@@ -62,29 +73,34 @@ else
 	
 	$sql = "select * from books";
 	$result = $mysqli->query($sql);
-	echo "<table><tr>";
+	$c=0;
+	echo "<table>";
 	if($result->num_rows >0)
+	{
+		echo "<tr>";
 		while($row = $result->fetch_assoc()) 
 			{
+				if($c <=5)
+				{
 				$i = $row['id'];
-				echo "<td>";
-				echo "<a href ='sach.php?id=$i'><img src='admin/img/books/".$row['hinhanh']."' width='250px' height='250px'></a>";
-				echo "</td>";
-			}
-	else echo "0 results";
-	$result->free();
-	$result = $mysqli->query($sql);
-	echo "</tr><tr>";
-	
-	if($result->num_rows >0)
-		while($row1 = $result->fetch_assoc()) 
-			{
 				echo "<td align='center'>";
-				echo $row1['gia']." VNĐ";
+				echo "<a href ='sach.php?id=$i&tl=".$row['theloai']."'><img src='admin/".$row['hinhanh']."' width='250px' height='250px'></a><br>".$row['gia']." VNĐ";
 				echo "</td>";
+				$c++;
+				}
+				else if($c >5)
+				{
+				$i = $row['id'];
+				echo "</tr><tr>";
+				echo "<td align='center'>";
+				echo "<a href ='sach.php?id=$i&tl=".$row['theloai']."'><img src='admin/".$row['hinhanh']."' width='250px' height='250px'></a><br>".$row['gia']." VNĐ";
+				echo "</td>";
+				$c = 0;
+				}
 			}
+	}
 	else echo "0 results";
-	$result->free();
+
 	echo "</tr></table>";
 	
 	

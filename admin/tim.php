@@ -13,12 +13,12 @@ if($tacgiat == "" && $theloait == "")
 	$result = $mysqli->query($sqlb);
 }else if ($tensacht == "" && $theloait == "")
 {
-	$sqlb = "select * from books where tacgia like N'%$tacgiat%'";
+	$sqlb = "select id,tensach,books.tacgia,nxb,gia,theloai,hinhanh from books,tacgia where books.tacgia = tacgia.id_tacgia and  tenTG like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($tensacht == "" && $tacgiat == "")
 {
-	$sqlb = "select * from books where theloai like N'%$theloait%'";
+	$sqlb = "select id,tensach,tacgia,nxb,gia,books.theloai,hinhanh from books,theloai where theloai.id_theloai = books.theloai and tentheloai like N'%$theloait%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if ($theloait == "" && $tensacht != "" && $tacgiat != "")
@@ -28,20 +28,21 @@ if($tacgiat == "" && $theloait == "")
 	$result = $mysqli->query($sqlb);
 }else if ($theloait != "" && $tensacht == "" && $tacgiat != "")
 {
-	$sqlb = "select * from books where theloai like N'%$theloait%' and tacgia like N'%$tacgiat%'";
+	$sqlb = "select id,tensach,books.tacgia,nxb,gia,books.theloai,hinhanh from books,tacgia,theloai where books.theloai = theloai.id_theloai and books.tacgia = tacgia.id_tacgia and tentheloai like N'%$theloait%' and tenTG like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if($theloait != "" && $tensacht != "" && $tacgiat == "")
 {
-	$sqlb = "select * from books where theloai like N'%$theloait%' and tensach like N'%$tensacht%'";
+	$sqlb = "select id,tensach,tacgia,nxb,gia,books.theloai,hinhanh from books,theloai where books.theloai = theloai.id_theloai and tentheloai like N'%$theloait%' and tensach like N'%$tensacht%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }else if($theloait != "" && $tensacht != "" && $tacgiat != "")
 {
-	$sqlb = "select * from books where theloai like N'%$theloait%' and tensach like N'%$tensacht%' and tacgia like N'%$tacgiat%'";
+	$sqlb = "select id,tensach,books.tacgia,nxb,gia,books.theloai,hinhanh from books,tacgia,theloai where books.theloai = theloai.id_theloai and books.tacgia = tacgia.id_tacgia and tentheloai like N'%$theloait%' and tensach like N'%$tensacht%' and tenTG like N'%$tacgiat%'";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sqlb);
 }
+
 echo "<a href='http://localhost/sach/admin/'>Trở về</a><br>";
 if(isset($_POST["submit"]))
 {
@@ -57,7 +58,7 @@ if(isset($_POST["submit"]))
 				echo "<br>Nhà xuất bản : ".$row['nxb'];
 				echo "<br>Giá : ".$row['gia']." VNĐ";
 				echo "<br>Thể loại : ".$row['theloai'];
-				echo "<br>Hình ảnh : <img src='img/books/".$row['hinhanh']."' width ='300px' height ='300px'></img><hr>";
+				echo "<br>Hình ảnh : <img src='".$row['hinhanh']."' width ='300px' height ='300px'></img><hr>";
 			}
 		echo "<br><br><br><hr><a href='http://localhost/sach/admin/'>Trở về</a>";	
 	}

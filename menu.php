@@ -46,11 +46,22 @@ else
 	
 <div class="mainmnb">
 		<ul class="ulmainmnb">
-		<li><a href="sgk.php">Sách giáo khoa</a></li>
-		<li><a href="snn.php">Sách ngoại ngữ</a></li>
-		<li><a href="skn.php">Sách kĩ năng</a></li>
-		<li><a href="td.php">Từ điển</a></li>
-
+		<?php
+		$menu = "select * from theloai";
+		mysqli_query($mysqli,"SET character_set_results=utf8");
+		$r = $mysqli->query($menu);
+		
+		if($r->num_rows >0)
+			while($row = $r->fetch_assoc()) 
+			{
+				
+				$itl = $row['id_theloai'];
+				echo "<li>";
+				echo "<a href ='menu.php?id=$itl'>".$row['tentheloai']."</a>";
+				echo "</li>";
+			}
+	else echo "0 results";
+		?>
 		
 		</ul>	
 </div>
@@ -59,33 +70,37 @@ else
 <?php
 
 
-	
-	$sql = "select * from books where theloai = 'TL1'";
+	$idtl = $_GET['id'];
+	$sql = "select * from books where theloai='$idtl'";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result = $mysqli->query($sql);
-	echo "<table><tr>";
+	echo "<table style='padding : 20px 150px'>";
+	$t ="";
+	$c=0;
 	if($result->num_rows >0)
-		while($row = $result->fetch_assoc()) 
-			{
-				$i = $row['id'];
-				echo "<td>";
-				echo "<a href ='sach.php?id=$i'><img src='admin/img/books/".$row['hinhanh']."' width='250px' height='250px'></a>";
-				echo "</td>";
-			}
-	else echo "0 results";
-	$result->free();
-	$result = $mysqli->query($sql);
-	echo "</tr><tr>";
-	
-	if($result->num_rows >0)
-		while($row1 = $result->fetch_assoc()) 
-			{
-				echo "<td align='center'>";
-				echo $row1['gia']." VNĐ";
-				echo "</td>";
-			}
-	else echo "0 results";
-	$result->free();
-	echo "</tr></table>";
+	{
+
+			echo "<tr>";
+				while($row = $result->fetch_assoc()) 
+				{
+					if($c <3)
+					{
+					$ids = $row['id'];
+					echo "<td><a href ='sach.php?id=$ids&tl=$idtl'><img src='admin/".$row['hinhanh']."' width='400px' height='400px'></a></td>";
+					$c++;
+					}
+					else if($c >=3)
+					{
+					echo "</tr><tr>";
+					$ids = $row['id'];
+					echo "<td><a href ='sach.php?id=$ids&tl=$idtl'><img src='admin/".$row['hinhanh']."' width='400px' height='400px'></a></td>";
+					$c = 0;
+					}
+				}
+			
+	}
+	echo "</table>";	
+
 	
 	
 ?>
