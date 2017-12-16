@@ -12,7 +12,8 @@
 <a href='theloai.php'>Thể loại</a>
 </div>
 
-<?php include("per/per.php");
+<?php session_start();
+include("per/per.php");
 include("include/include.php");
 //echo "<a href='http://localhost/sach/'>Trở về trang chủ</a>";	
 ?>
@@ -39,6 +40,7 @@ include("include/include.php");
 		while($row = $result->fetch_assoc()) 
 		{
 			echo "<option value='".$row['id_tacgia']."'>".$row['tenTG']."</option>";
+			
 		}
 		
 	echo "</select><br><select name='nxb'>";
@@ -92,9 +94,32 @@ include("include/include.php");
 </td>
 
 <td>
+
+
 <form action="sua.php" method='POST' enctype= "multipart/form-data">
 Select book :
+
  <?php 
+	if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+	{
+		echo "<select name='ids'>";
+  $sql3 = "select * from books";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			if($row3['id'] == $_SESSION['idsua'])
+			echo "<option value='".$row3['id']."' selected>".$row3['tensach']."</option>";
+			else
+			echo "<option value='".$row3['id']."' >".$row3['tensach']."</option>";
+
+		}	
+	echo "</select><br>";
+	}
+	else
+	{
+		
   echo "<select name='ids'>";
   $sql3 = "select * from books";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
@@ -103,13 +128,46 @@ Select book :
 		while($row3 = $result3->fetch_assoc()) 
 		{
 			echo "<option value='".$row3['id']."'>".$row3['tensach']."</option>";
+
 		}	
 	echo "</select><br>";
+	}
   ?>
+  <input type='submit' name="sb" value="Load">
+
 Thông tin cần thay đổi : <br>
-  <input type="input" name="tensachs" placeholder="Tên sách" ><br>
-  <select name="tacgias">
 <?php 
+if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+	{
+		echo "<input type ='text' name ='tensachs' value='".$_SESSION['tensachsua']."'>";
+	}
+	else
+		echo "<input type='input' name='tensachs' placeholder='Tên sách'><br>";
+
+?>
+  
+ 
+<?php 
+	if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+	{
+		echo "<select name='tacgias'>";
+  $sql3 = "select * from tacgia";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			if($row3['id_tacgia'] == $_SESSION['idtacgiasua'])
+			echo "<option value='".$row3['id_tacgia']."' selected>".$row3['tenTG']."</option>";
+			else
+			echo "<option value='".$row3['id_tacgia']."' >".$row3['tenTG']."</option>";
+
+		}	
+	echo "</select><br>";
+	}
+	else
+	{
+		echo "<select name='tacgias'>"; // select
  $sql = "select * from tacgia";
   mysqli_query($mysqli,"SET character_set_results=utf8");
   $result = $mysqli->query($sql);
@@ -119,8 +177,28 @@ Thông tin cần thay đổi : <br>
 			echo "<option value='".$row['id_tacgia']."'>".$row['tenTG']."</option>";
 		}
 		
-	echo "</select><br><select name='nxbs'>";
-	
+	echo "</select>";				// end select
+	}
+	if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+	{
+		echo "<select name='nxbs'>";
+  $sql3 = "select * from nxb";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			if($row3['id_nxb'] == $_SESSION['idnxbsua'])
+			echo "<option value='".$row3['id_nxb']."' selected>".$row3['tenNXB']."</option>";
+			else
+			echo "<option value='".$row3['id_nxb']."' >".$row3['tenNXB']."</option>";
+
+		}	
+	echo "</select><br>";
+	}
+	else
+	{
+	echo "<br><select name='nxbs'>";
 	$sql1 = "select * from nxb";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
 	$result1 = $mysqli->query($sql1);
@@ -130,10 +208,37 @@ Thông tin cần thay đổi : <br>
 			echo "<option value='".$row1['id_nxb']."'>".$row1['tenNXB']."</option>";
 		}	
 	echo "</select><br>";
+	}
+	
 
 ?>
-  <input type="number" name="gias" placeholder="Gíá"  ><br>
+<?php
+	if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+		echo "<input type ='text' name ='gias' value='".$_SESSION['giasua']."'>";
+	else
+  echo "<input type='number' name='gias' placeholder='Gíá'  ><br>";
+  ?>
    <?php 
+   if(isset($_SESSION['idsua']) && $_SESSION['idsua'] != "")
+	{
+		echo "<select name='theloais'>";
+  $sql3 = "select * from theloai";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			if($row3['id_theloai'] == $_SESSION['idtheloaisua'])
+			echo "<option value='".$row3['id_theloai']."' selected>".$row3['tentheloai']."</option>";
+			else
+			echo "<option value='".$row3['id_theloai']."' >".$row3['tentheloai']."</option>";
+
+		}	
+	echo "</select><br>";
+	}
+	else
+	{
+   
   echo "<select name='theloais'>";
   $sql2 = "select * from theloai";
 	mysqli_query($mysqli,"SET character_set_results=utf8");
@@ -144,6 +249,7 @@ Thông tin cần thay đổi : <br>
 			echo "<option value='".$row2['id_theloai']."'>".$row2['tentheloai']."</option>";
 		}	
 	echo "</select><br>";
+	}
   ?>
   <input type="file" name="hinhs"><br>
   <input type='submit' name="submit" value="Sửa">
