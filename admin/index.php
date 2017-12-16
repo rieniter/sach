@@ -75,7 +75,18 @@ include("include/include.php");
 </td>
 <td>
 <form action="xoa.php" method='POST' enctype= "multipart/form-data">
-<input type="input" name="idx" placeholder="ID" ><br>
+ <?php 
+  echo "<select name='idx'>";
+  $sql3 = "select * from books";
+	mysqli_query($mysqli,"SET character_set_results=utf8");
+	$result3 = $mysqli->query($sql3);
+	if($result3->num_rows >0)
+		while($row3 = $result3->fetch_assoc()) 
+		{
+			echo "<option value='".$row3['id']."'>".$row3['tensach']."</option>";
+		}	
+	echo "</select><br>";
+  ?>
 <input type='submit' name="submit" value="Xóa">
 </form>
 </td>
